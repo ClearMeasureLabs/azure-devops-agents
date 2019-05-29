@@ -123,7 +123,7 @@
                 }
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -135,7 +135,7 @@
                 "securityRules": "[parameters('networkSecurityGroupRules')]"
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -150,7 +150,7 @@
                 "subnets": "[parameters('subnets')]"
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -165,7 +165,7 @@
                 "name": "[parameters('publicIpAddressSku')]"
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -185,7 +185,7 @@
                 "count": "[length(parameters('dataDiskResources'))]"
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -212,7 +212,7 @@
                     "imageReference": {
                         "publisher": "microsoftvisualstudio",
                         "offer": "visualstudio2019latest",
-                        "sku": "vs-2019-comm-latest-win10-n",
+                        "sku": "vs-2019-ent-latest-ws2019",
                         "version": "latest"
                     },
                     "copy": [
@@ -257,7 +257,7 @@
                 }
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -271,7 +271,7 @@
                 "name": "[parameters('diagnosticsStorageAccountType')]"
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
@@ -297,11 +297,11 @@
                 }
             },
             "tags": {
-                "environment": "ci"
+                "Environment": "ci"
             }
         },
         {
-            "name": "Microsoft.CustomScriptExtension-20190529104017",
+            "name": "Microsoft.CustomScriptExtension-20190529123011",
             "apiVersion": "2015-01-01",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -314,10 +314,10 @@
                         "value": "build-vm001"
                     },
                     "location": {
-                        "value": "eastasia"
+                        "value": "southcentralus"
                     },
                     "fileUris": {
-                        "value": "https://iaasv2tempstoragesn.blob.core.windows.net/vmextensionstemporary-00030000d83af4ae-20190529144009228/configureBuildServer.ps1?sv=2017-04-17&sr=c&sig=opZdElkmMboZq3PmTnafE1qeWe5CJkFlAW4g3KIBjwo%3D&se=2019-05-30T14%3A40%3A09Z&sp=rw"
+                        "value": "https://iaasv2tempstoragesn.blob.core.windows.net/vmextensionstemporary-00030000d83af4ae-20190529163004461/configureBuildServer.ps1?sv=2017-04-17&sr=c&sig=GK6fz8Aqa9uMczvamV6vBU0VbYOF8uh1ZVN%2FIJpSW2Q%3D&se=2019-05-30T16%3A30%3A04Z&sp=rw"
                     },
                     "arguments": {
                         "value": "param1"

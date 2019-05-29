@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "value": "eastasia"
+            "value": "southcentralus"
         },
         "networkInterfaceName": {
-            "value": "build-vm001789"
+            "value": "build-vm001651"
         },
         "networkSecurityGroupName": {
             "value": "build-vm001-nsg"
@@ -36,7 +36,7 @@
         },
         "addressPrefixes": {
             "value": [
-                "10.0.1.0/24"
+                "10.0.0.0/24"
             ]
         },
         "subnets": {
@@ -44,7 +44,7 @@
                 {
                     "name": "default",
                     "properties": {
-                        "addressPrefix": "10.0.1.0/24"
+                        "addressPrefix": "10.0.0.0/24"
                     }
                 }
             ]
@@ -103,10 +103,10 @@
             "value": null
         },
         "diagnosticsStorageAccountName": {
-            "value": "buildagentsrgdiag769"
+            "value": "buildagentsrgdiag318"
         },
         "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/buildagentsrgdiag769"
+            "value": "Microsoft.Storage/storageAccounts/buildagentsrgdiag318"
         },
         "diagnosticsStorageAccountType": {
             "value": "Standard_LRS"
