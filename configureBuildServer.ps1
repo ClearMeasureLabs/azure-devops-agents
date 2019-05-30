@@ -1,6 +1,6 @@
 Write-Host "Installing Chocolatey"
 Set-ExecutionPolicy Bypass -Scope Process -Force
-iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
+Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression
 
 $Packages = 'git',`
 			'visualstudiocode',`

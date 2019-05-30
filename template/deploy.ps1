@@ -31,14 +31,14 @@ param(
 
  [Parameter(Mandatory=$True)]
  [string]
- $resourceGroupName,
+ $resourceGroupName = "buildagents-rg",
 
  [string]
- $resourceGroupLocation,
+ $resourceGroupLocation = "southcentralus",
 
  [Parameter(Mandatory=$True)]
  [string]
- $deploymentName,
+ $deploymentName = "deployBuildAgents",
 
  [string]
  $templateFilePath = "template.json",

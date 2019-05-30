@@ -102,12 +102,6 @@
         "adminPassword": {
             "value": null
         },
-        "diagnosticsStorageAccountName": {
-            "value": "buildagentsrgdiag318"
-        },
-        "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/buildagentsrgdiag318"
-        },
         "diagnosticsStorageAccountType": {
             "value": "Standard_LRS"
         },
@@ -118,7 +112,7 @@
             "value": "Enabled"
         },
         "autoShutdownTime": {
-            "value": "19:00"
+            "value": "22:00"
         },
         "autoShutdownTimeZone": {
             "value": "Central Standard Time"
