@@ -8,6 +8,9 @@
         "networkInterfaceName": {
             "type": "string"
         },
+        "enableAcceleratedNetworking": {
+            "type": "bool"
+        },
         "networkSecurityGroupName": {
             "type": "string"
         },
@@ -43,12 +46,6 @@
         },
         "osDiskType": {
             "type": "string"
-        },
-        "dataDisks": {
-            "type": "array"
-        },
-        "dataDiskResources": {
-            "type": "array"
         },
         "virtualMachineSize": {
             "type": "string"
@@ -115,6 +112,7 @@
                         }
                     }
                 ],
+                "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
                 "networkSecurityGroup": {
                     "id": "[variables('nsgId')]"
                 }
@@ -166,32 +164,11 @@
             }
         },
         {
-            "name": "[parameters('dataDiskResources')[copyIndex()].name]",
-            "type": "Microsoft.Compute/disks",
-            "apiVersion": "2018-06-01",
-            "location": "[parameters('location')]",
-            "properties": {
-                "diskSizeGB": "[parameters('dataDiskResources')[copyIndex()].diskSizeGB]",
-                "creationData": "[parameters('dataDiskResources')[copyIndex()].creationData]"
-            },
-            "sku": {
-                "name": "[parameters('dataDiskResources')[copyIndex()].sku]"
-            },
-            "copy": {
-                "name": "managedDiskResources",
-                "count": "[length(parameters('dataDiskResources'))]"
-            },
-            "tags": {
-                "Environment": "ci"
-            }
-        },
-        {
             "name": "[parameters('virtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-10-01",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "managedDiskResources",
                 "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]",
                 "[concat('Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]"
             ],
@@ -211,24 +188,7 @@
                         "offer": "WindowsServer",
                         "sku": "2019-Datacenter",
                         "version": "latest"
-                    },
-                    "copy": [
-                        {
-                            "name": "dataDisks",
-                            "count": "[length(parameters('dataDisks'))]",
-                            "input": {
-                                "lun": "[parameters('dataDisks')[copyIndex('dataDisks')].lun]",
-                                "createOption": "[parameters('dataDisks')[copyIndex('dataDisks')].createOption]",
-                                "caching": "[parameters('dataDisks')[copyIndex('dataDisks')].caching]",
-                                "writeAcceleratorEnabled": "[parameters('dataDisks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
-                                "diskSizeGB": "[parameters('dataDisks')[copyIndex('dataDisks')].diskSizeGB]",
-                                "managedDisk": {
-                                    "id": "[coalesce(parameters('dataDisks')[copyIndex('dataDisks')].id, if(equals(parameters('dataDisks')[copyIndex('dataDisks')].name, json('null')), json('null'), resourceId('Microsoft.Compute/disks', parameters('dataDisks')[copyIndex('dataDisks')].name)))]",
-                                    "storageAccountType": "[parameters('dataDisks')[copyIndex('dataDisks')].storageAccountType]"
-                                }
-                            }
-                        }
-                    ]
+                    }
                 },
                 "networkProfile": {
                     "networkInterfaces": [
@@ -298,7 +258,7 @@
             }
         },
         {
-            "name": "Microsoft.CustomScriptExtension-20190529123011",
+            "name": "Microsoft.CustomScriptExtension-20190603104810",
             "apiVersion": "2015-01-01",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -314,10 +274,10 @@
                         "value": "southcentralus"
                     },
                     "fileUris": {
-                        "value": "https://iaasv2tempstoragesn.blob.core.windows.net/vmextensionstemporary-00030000d83af4ae-20190529163004461/configureBuildServer.ps1?sv=2017-04-17&sr=c&sig=GK6fz8Aqa9uMczvamV6vBU0VbYOF8uh1ZVN%2FIJpSW2Q%3D&se=2019-05-30T16%3A30%3A04Z&sp=rw"
+                        "value": "https://iaasv2tempstoragech.blob.core.windows.net/vmextensionstemporary-00030000d83af4ae-20190603144611046/Install-BuildTools.ps1?sv=2017-04-17&sr=c&sig=67oB34uqeZe5ZYqTSNx%2BGCxAQHlzrNxdz7u%2FY0laTsM%3D&se=2019-06-04T14%3A46%3A11Z&sp=rw"
                     },
                     "arguments": {
-                        "value": "param1"
+                        "value": "DatabaseUserName, DatabasePassword, OrganizationUrl, BuildAgentPAT, AgentPool, NumOfAgents"
                     }
                 }
             },

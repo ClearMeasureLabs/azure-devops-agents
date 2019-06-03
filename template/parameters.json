@@ -8,6 +8,9 @@
         "networkInterfaceName": {
             "value": "build-vm001651"
         },
+        "enableAcceleratedNetworking": {
+            "value": true
+        },
         "networkSecurityGroupName": {
             "value": "build-vm001-nsg"
         },
@@ -66,32 +69,6 @@
         },
         "osDiskType": {
             "value": "Premium_LRS"
-        },
-        "dataDisks": {
-            "value": [
-                {
-                    "lun": 0,
-                    "createOption": "attach",
-                    "caching": "None",
-                    "writeAcceleratorEnabled": false,
-                    "id": null,
-                    "name": "build-vm001_DataDisk_0",
-                    "storageAccountType": null,
-                    "diskSizeGB": null
-                }
-            ]
-        },
-        "dataDiskResources": {
-            "value": [
-                {
-                    "name": "build-vm001_DataDisk_0",
-                    "diskSizeGB": 1023,
-                    "sku": "Premium_LRS",
-                    "creationData": {
-                        "createOption": "empty"
-                    }
-                }
-            ]
         },
         "virtualMachineSize": {
             "value": "Standard_D4s_v3"
