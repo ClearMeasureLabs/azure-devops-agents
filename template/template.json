@@ -5,14 +5,8 @@
         "location": {
             "type": "string"
         },
-        "networkInterfaceName": {
-            "type": "string"
-        },
         "enableAcceleratedNetworking": {
             "type": "bool"
-        },
-        "networkSecurityGroupName": {
-            "type": "string"
         },
         "networkSecurityGroupRules": {
             "type": "array"
@@ -20,17 +14,11 @@
         "subnetName": {
             "type": "string"
         },
-        "virtualNetworkName": {
-            "type": "string"
-        },
         "addressPrefixes": {
             "type": "array"
         },
         "subnets": {
             "type": "array"
-        },
-        "publicIpAddressName": {
-            "type": "string"
         },
         "publicIpAddressType": {
             "type": "string"
@@ -81,10 +69,14 @@
     "variables": {
         "resourceGroupUniqueString": "[uniqueString(resourceGroup().id,resourceGroup().location,subscription().subscriptionId)]",
         "resourceGroupNameLowerCase": "[replace(toLower(resourceGroup().name), '-', '')]",
-        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-        "diagnosticsStorageAccountName": "[concat(variables('resourceGroupNameLowerCase'),'diag',variables('resourceGroupUniqueString'))]"
+        "diagnosticsStorageAccountName": "[concat(variables('resourceGroupNameLowerCase'),'diag',variables('resourceGroupUniqueString'))]",
+        "networkInterfaceName": "[concat(parameters('virtualMachineName'), '-nic')]",
+        "networkSecurityGroupName": "[concat(parameters('virtualMachineName'), '-nsg')]",
+        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+        "publicIpAddressName": "[concat(parameters('virtualMachineName'), '-ip')]",
+        "virtualNetworkName": "[concat(resourceGroup().name, '-vnet')]",
+        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
     },
     "resources": [
         {
@@ -93,9 +85,9 @@
             "apiVersion": "2018-10-01",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
-                "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+                "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+                "[concat('Microsoft.Network/publicIpAddresses/', variables('publicIpAddressName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -122,7 +114,7 @@
             }
         },
         {
-            "name": "[parameters('networkSecurityGroupName')]",
+            "name": "[variables('networkSecurityGroupName')]",
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-02-01",
             "location": "[parameters('location')]",
@@ -134,7 +126,7 @@
             }
         },
         {
-            "name": "[parameters('virtualNetworkName')]",
+            "name": "[variables('virtualNetworkName')]",
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-02-01",
             "location": "[parameters('location')]",
@@ -149,7 +141,7 @@
             }
         },
         {
-            "name": "[parameters('publicIpAddressName')]",
+            "name": "[variables('publicIpAddressName')]",
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
             "location": "[parameters('location')]",

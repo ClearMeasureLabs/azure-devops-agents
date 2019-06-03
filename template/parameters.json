@@ -5,14 +5,8 @@
         "location": {
             "value": "southcentralus"
         },
-        "networkInterfaceName": {
-            "value": "build-vm001651"
-        },
         "enableAcceleratedNetworking": {
             "value": true
-        },
-        "networkSecurityGroupName": {
-            "value": "build-vm001-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -34,9 +28,6 @@
         "subnetName": {
             "value": "default"
         },
-        "virtualNetworkName": {
-            "value": "buildagents-rg-vnet"
-        },
         "addressPrefixes": {
             "value": [
                 "10.0.0.0/24"
@@ -51,9 +42,6 @@
                     }
                 }
             ]
-        },
-        "publicIpAddressName": {
-            "value": "build-vm001-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
