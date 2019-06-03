@@ -13,12 +13,13 @@ function Install-BuildTools {
 	Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression
 
 	if(Test-Path("C:\Program Files (x86)\Microsoft Visual Studio\2019")) {
-		Write-Host "Visual Studio 2019 is already installed. Skipping installation of VS build tools."
+		Write-Host "Visual Studio 2019 products detected. Skipping installing VS 2019 Build Tools."
 	} else {
-		$BuiltToolsUrl = "https://download.visualstudio.microsoft.com/download/pr/077e5fdc-f805-4868-8db6-ecdf820306ee/4bdeb564f89170caabaee46beba35788/vs_buildtools.exe"
-		$BuildToolsOut = "C:/temp/vs_buildtools.exe"
-
-		choco install visualstudio2019buildtools --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
+		Write-Host "Installing VS Build Tools"
+		# $BuiltToolsUrl = "https://download.visualstudio.microsoft.com/download/pr/077e5fdc-f805-4868-8db6-ecdf820306ee/4bdeb564f89170caabaee46beba35788/vs_buildtools.exe"
+		# $BuildToolsOut = "C:/temp/vs_buildtools.exe"
+		# Invoke-WebRequest -Uri $BuiltToolsUrl -OutFile $BuildToolsOut
+		choco install visualstudio2019buildtools --package-parameters "--allWorkloads --includeRecommended --includeOptional --quiet --norestart --locale en-US" -y
 	}
 	
 	Write-Host "Installing Packages"
@@ -31,9 +32,9 @@ function Install-BuildTools {
 	
 	# if SSMS won't open
 	# https://dba.stackexchange.com/questions/237086/sql-server-management-studio-18-wont-open-only-splash-screen-pops-up
-	# "C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\PrivateAssemblies\Interop\Microsoft.VisualStudio.Shell.Interop.8.0.dll"
-	# C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\PublicAssemblies
+	# cp "C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\PrivateAssemblies\Interop\Microsoft.VisualStudio.Shell.Interop.8.0.dll" "C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\PublicAssemblies"
 
+	# Didn't need to do this...
 	# "%ProgramFiles%\Microsoft SQL Server\110\Tools\Binn\sqlcmd.exe" -S . -E -Q "ALTER SERVER ROLE [sysadmin] ADD MEMBER [BUILTIN\Users];"
 
 	# Write-Host "Downloading agent zip file"
@@ -45,6 +46,7 @@ function Install-BuildTools {
 	For ($i=1; $i -le $NumOfAgents; $i++) {
 		$AgentName = "$Env:ComputerName-$i"
 		Write-Host "Installing agent $AgentName"
+		# calling force on install as workaround to install multiple agents
 		choco install azure-pipelines-agent --params "'/Directory:c:\agents\agent$i /AgentName:$AgentName /Token:$BuildAgentPAT /Pool:$AgentPool /Url:$OrganizationUrl'" -fy
 	}
 
@@ -61,3 +63,4 @@ function Install-BuildTools {
 # auto update schedule/turned on?
 # enable mixed mode auth - EXEC xp_instance_regwrite N'HKEY_LOCAL_MACHINE', N'Software\Microsoft\MSSQLServer\MSSQLServer', N'LoginMode', REG_DWORD, 2
 # remember to restart sql https://stackoverflow.com/questions/12541560/change-sql-server-authentication-mode-using-script
+# chocolatey throttling - based on ip
