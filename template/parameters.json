@@ -52,9 +52,6 @@
         "virtualMachineName": {
             "value": "build-vm001"
         },
-        "virtualMachineRG": {
-            "value": "buildagents-rg"
-        },
         "osDiskType": {
             "value": "Premium_LRS"
         },
