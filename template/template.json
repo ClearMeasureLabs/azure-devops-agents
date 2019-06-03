@@ -257,7 +257,7 @@
                 },
                 "parameters": {
                     "vmName": {
-                        "value": "build-vm001"
+                        "value": "[parameters('virtualMachineName')]"
                     },
                     "location": {
                         "value": "southcentralus"
