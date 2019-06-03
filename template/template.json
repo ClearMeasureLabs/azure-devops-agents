@@ -66,7 +66,7 @@
     "variables": {
         "resourceGroupUniqueString": "[uniqueString(resourceGroup().id,resourceGroup().location,subscription().subscriptionId)]",
         "resourceGroupNameLowerCase": "[replace(toLower(resourceGroup().name), '-', '')]",
-        "diagnosticsStorageAccountName": "[concat(variables('resourceGroupNameLowerCase'),'diag',variables('resourceGroupUniqueString'))]",
+        "diagnosticsStorageAccountName": "[concat(take(variables('resourceGroupNameLowerCase'), 7),'diag',variables('resourceGroupUniqueString'))]",
         "networkInterfaceName": "[concat(parameters('virtualMachineName'), '-nic')]",
         "networkSecurityGroupName": "[concat(parameters('virtualMachineName'), '-nsg')]",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
