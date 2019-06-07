@@ -245,34 +245,6 @@
             "tags": {
                 "Environment": "ci"
             }
-        },
-        {
-            "name": "Microsoft.CustomScriptExtension-20190603104810",
-            "apiVersion": "2015-01-01",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "incremental",
-                "templateLink": {
-                    "uri": "https://gallery.azure.com/artifact/20161101/Microsoft.CustomScriptExtension-arm.2.0.50/Artifacts/MainTemplate.json"
-                },
-                "parameters": {
-                    "vmName": {
-                        "value": "[parameters('virtualMachineName')]"
-                    },
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "fileUris": {
-                        "value": "https://iaasv2tempstoragech.blob.core.windows.net/vmextensionstemporary-00030000d83af4ae-20190603144611046/Install-BuildTools.ps1?sv=2017-04-17&sr=c&sig=67oB34uqeZe5ZYqTSNx%2BGCxAQHlzrNxdz7u%2FY0laTsM%3D&se=2019-06-04T14%3A46%3A11Z&sp=rw"
-                    },
-                    "arguments": {
-                        "value": "DatabaseUserName, DatabasePassword, OrganizationUrl, BuildAgentPAT, AgentPool, NumOfAgents"
-                    }
-                }
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-            ]
         }
     ],
     "outputs": {
