@@ -4,7 +4,7 @@ param(
 	$DatabasePassword,
 	$OrganizationUrl,
 	$BuildAgentPAT,
-	$AgentPool = "Private VS2019",
+	$AgentPool = "Private Build VS2019",
 	$NumOfAgents = 4
 )
 
