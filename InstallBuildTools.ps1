@@ -23,7 +23,8 @@ if(Test-Path("C:\Program Files (x86)\Microsoft Visual Studio\2019")) {
 }
 
 Write-Host "Installing Packages"
-$Packages = 'git',`
+$Packages = 'azurepowershell',`
+			'git',`
 			'visualstudiocode',`
 			'sql-server-express',`
 			'sql-server-management-studio'
@@ -34,12 +35,12 @@ ForEach ($PackageName in $Packages)
 # https://dba.stackexchange.com/questions/237086/sql-server-management-studio-18-wont-open-only-splash-screen-pops-up
 # cp "C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\PrivateAssemblies\Interop\Microsoft.VisualStudio.Shell.Interop.8.0.dll" "C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\PublicAssemblies"
 
-Write-Host "Installing $NumOfAgents build agents"
+Write-Host "Installing $NumOfAgents pipeline agents"
 For ($i=1; $i -le $NumOfAgents; $i++) {
 	$AgentName = "$Env:ComputerName-$i"
 	Write-Host "Installing agent $AgentName"
 	# calling force on install as workaround to install multiple agents
-	choco install azure-pipelines-agent --params "'/Directory:c:\agents\agent$i /AgentName:$AgentName /Token:$BuildAgentPAT /Pool:$AgentPool /Url:$OrganizationUrl'" -fy
+	choco install azure-pipelines-agent --params "'/Directory:c:\agents\a$i /WorkDirectory:d:\work\a$i /AgentName:$AgentName /Token:$BuildAgentPAT /Pool:$AgentPool /Url:$OrganizationUrl'" -fy
 }
 
 # Write-Host "Restarting computer"
