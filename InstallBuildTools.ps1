@@ -4,7 +4,7 @@ param(
 	$DatabasePassword,
 	$OrganizationUrl,
 	$BuildAgentPAT,
-	$AgentPool = "Private Build VS2019",
+	$AgentPool = "Private VS2019",
 	$NumOfAgents = 4
 )
 
@@ -24,6 +24,7 @@ if(Test-Path("C:\Program Files (x86)\Microsoft Visual Studio\2019")) {
 
 Write-Host "Installing Packages"
 $Packages = 'azurepowershell',`
+			'googlechrome',`
 			'git',`
 			'visualstudiocode',`
 			'sql-server-express',`
