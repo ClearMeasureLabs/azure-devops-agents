@@ -27,7 +27,7 @@ $Packages = 'azurepowershell',`
 			'googlechrome',`
 			'git',`
 			'visualstudiocode',`
-			'sql-server-express',`
+			'sql-server-2017',`
 			'sql-server-management-studio'
 ForEach ($PackageName in $Packages)
 { choco install $PackageName -y }
